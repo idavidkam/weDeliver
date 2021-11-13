@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1070540088527",
+    "firebase_url": "https://shipcalc-freedeliveries-default-rtdb.firebaseio.com",
+    "project_id": "shipcalc-freedeliveries",
+    "storage_bucket": "shipcalc-freedeliveries.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070540088527:android:cd9ffe6bf8af04b92803ba",
+        "android_client_info": {
+          "package_name": "app.shipcalc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070540088527-7okv9oo5lqbanqko0gb4105fdmh3nrgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj54ijKNEoIA0m_jN8UruPIgWJyhFQiPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070540088527-7okv9oo5lqbanqko0gb4105fdmh3nrgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
