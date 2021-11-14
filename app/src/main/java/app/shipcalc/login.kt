@@ -19,16 +19,14 @@ class login : AppCompatActivity() {
         //move to next page - homepage
         loginButton = findViewById(R.id.login_button)
         loginButton.setOnClickListener{
-            val intent = Intent(this@login, HomeActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this@login, HomeActivity::class.java))
         }
 
 
         //move to next page - create account
         createAccountButton = findViewById<Button>(R.id.create_account_Button)
         createAccountButton.setOnClickListener{
-            val intent = Intent(this@login, signin::class.java)
-            startActivity(intent)
+            startActivity(Intent(this@login, signin::class.java))
         }
 
 

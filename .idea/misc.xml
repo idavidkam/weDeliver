@@ -4,17 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37592592592592594" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/border.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/ic_baseline_airplanemode_active_24.xml" value="0.37592592592592594" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/ic_baseline_smartphone_24.xml" value="0.1" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37592592592592594" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/input_border.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_home.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_login.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_signin.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_home.xml" value="0.3671875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_signin.xml" value="0.1796875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.37592592592592594" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.37592592592592594" />
+        <entry key="..\:/Users/inon.bezalel/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/login_signin_border.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/inon.bezalel/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_home.xml" value="0.1796875" />
+        <entry key="..\:/Users/inon.bezalel/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
       </map>
     </option>
   </component>
