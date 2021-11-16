@@ -1,5 +1,6 @@
 package app.shipcalc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -13,6 +14,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         addPackageButton = findViewById(R.id.home_button_addPackage)
         addPackageButton.setOnClickListener {
+            startActivity(Intent(this@HomeActivity, AddPackage::class.java))
+
         }
     }
 }
