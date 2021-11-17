@@ -2,24 +2,22 @@ package app.shipcalc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
+import com.google.android.material.textfield.TextInputLayout
 
-val items = listOf("Envelop", "Small Package", "Large Package")
-lateinit  var deliveryTypes: EditText
+//
+val TypesList = listOf("Envelop", "Small Package", "Large Package")
+lateinit  var deliveryType: AutoCompleteTextView
 
 class AddPackage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_package)
 
-        deliveryTypes = findViewById(R.id.addPkgTextPackageType)
-        val adapter = ArrayAdapter(this, R.layout.delivery_types_list, items)
-        (deliveryTypes as? AutoCompleteTextView)?.setAdapter(adapter)
+        deliveryType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes)
+        val adapter: ArrayAdapter<*> = ArrayAdapter(applicationContext, R.layout.package_type_dropdown, TypesList)
+        (deliveryType as? AutoCompleteTextView)?.setAdapter(adapter)
 
     }
 }
