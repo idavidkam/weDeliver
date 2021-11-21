@@ -1,14 +1,14 @@
 package app.shipcalc
 
 class PackageDeliver(
-    packageType: PackegeTypesEnum,
+    packageType: PackageTypesEnum,
     isFragile: Boolean,
     weight: Double,
     coor: Coordinate,
     name: String,
     address: String
 ) {
-    var packageType: PackegeTypesEnum = packageType
+    var packageType: PackageTypesEnum = packageType
         get() = field
         private set(value) {
             field = value

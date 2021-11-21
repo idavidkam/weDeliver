@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler().postDelayed({
-            startActivity(Intent(this@MainActivity,login::class.java))
+            startActivity(Intent(this@MainActivity,Login::class.java))
             finish()
         },1000)
 

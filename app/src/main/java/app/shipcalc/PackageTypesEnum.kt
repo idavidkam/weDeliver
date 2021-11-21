@@ -1,5 +1,5 @@
 package app.shipcalc
 
-enum class PackegeTypesEnum {
+enum class PackageTypesEnum {
     ENVELOPE, SMALL_PACKAGE, LARG_PACKAGE
 }
