@@ -1,9 +1,11 @@
 package app.shipcalc
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.google.firebase.database.FirebaseDatabase
+import java.lang.Exception
 
 // List for dropdown menu of package types
 val TypesList = listOf("Envelop", "Small Package", "Large Package")
@@ -14,10 +16,10 @@ lateinit var sendButten: Button
 lateinit var packageType: EditText
 lateinit var isFragileCB: CheckBox
 lateinit var pkgWeight: EditText
-lateinit var lang: EditText
-lateinit var lat: EditText
-lateinit var pkgName: EditText
-lateinit var pkgAddress: EditText
+//lateinit var lang: EditText
+//lateinit var lat: EditText
+//lateinit var pkgName: EditText
+//lateinit var pkgAddress: EditText
 
 // FireBase
 var databade = FirebaseDatabase.getInstance()
@@ -41,26 +43,36 @@ class AddPackage : AppCompatActivity() {
 
         //findView
          sendButten = findViewById<Button>(R.id.addPkgButtonSend)
-         packageType = findViewById<EditText>(R.id.addPkgTextPackageTypes)
+         var packageType = findViewById<EditText>(R.id.addPkgTextPackageType)
          isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile)
-         pkgWeight = findViewById<EditText>(R.id.addPkgTextWeight)
-         lang = findViewById<EditText>(R.id.addPkgTextLongitude)
-         lat = findViewById<EditText>(R.id.addPkgTextLatitude)
-         pkgName = findViewById<EditText>(R.id.addPkgTextAddresseeName)
-         pkgAddress = findViewById<EditText>(R.id.addPkgTextAddresseeAddress)
+         var pkgWeight = findViewById<EditText>(R.id.addPkgTextWeight)
+         var lang = findViewById<EditText>(R.id.addPkgTextLongitude)
+         var lat = findViewById<EditText>(R.id.addPkgTextLatitude)
+         var pkgName = findViewById<EditText>(R.id.addPkgTextAddresseeName)
+         var pkgAddress = findViewById<EditText>(R.id.addPkgTextAddresseeAddress)
 
 
         sendButten.setOnClickListener {
-            addPackage(
-                PackageDeliver(
-                    ConvertPackageTypeToEnum(packageType),
-                    isFragileCB.isChecked,
-                    pkgWeight.text.toString().toDouble(),
-                    Coordinate(lang.text.toString().toDouble(), lat.text.toString().toDouble()),
-                    pkgName.text.toString(),
-                    pkgAddress.text.toString()
+            try {
+                addPackage(
+                    PackageDeliver(
+                        ConvertPackageTypeToEnum(packageType),
+                        isFragileCB.isChecked,
+                        pkgWeight.text.toString().toDouble(),
+                        Coordinate(lang.text.toString().toDouble(), lat.text.toString().toDouble()),
+                        pkgName.text.toString(),
+                        pkgAddress.text.toString()
+                    )
                 )
-            )
+            }
+            catch (E: Exception){
+                val alertDialogBuilder = AlertDialog.Builder(this)
+                alertDialogBuilder.setTitle("ERROR")
+                    .setMessage("We apologize but an error occurred while trying to send the information")
+                    .setIcon(R.drawable.ic_baseline_error_24)
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
+            }
         }
     }
 
