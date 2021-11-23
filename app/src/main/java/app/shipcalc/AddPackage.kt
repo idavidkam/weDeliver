@@ -48,22 +48,23 @@ class AddPackage : AppCompatActivity() {
         //findView
         sendButten = findViewById<Button>(R.id.addPkgButtonSend)
 
-
         sendButten.setOnClickListener {
             try {
 
                 // find view
                 var isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile).isChecked
-                //var packageType = findViewById<TextInputEditText>(R.id.addPkgTextPackageType)
+                var packageType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).text.toString()
                 var pkgWeight = findViewById<TextInputEditText>(R.id.addPkgTextWeight).text.toString()
                 var lang = findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text.toString()
                 var lat = findViewById<TextInputEditText>(R.id.addPkgTextLatitude).text.toString()
                 var pkgName = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).text.toString()
                 var pkgAddress = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).text.toString()
-                
+
+
+
                 addPackage(
                     PackageDeliver(
-                        PackageTypesEnum.ENVELOPE,
+                        convertPackageTypeToEnum(packageType),
                         isFragileCB,
                         pkgWeight.toDouble(),
                         Coordinate(lang.toDouble(), lat.toDouble()),
@@ -92,8 +93,8 @@ class AddPackage : AppCompatActivity() {
     }
 
 
-    fun ConvertPackageTypeToEnum(packageType: EditText): PackageTypesEnum {
-        return when (packageType.text.toString()) {
+    fun convertPackageTypeToEnum(packageType: String): PackageTypesEnum {
+        return when (packageType) {
             "Envelop" -> PackageTypesEnum.ENVELOPE
             "Small Package" -> PackageTypesEnum.SMALL_PACKAGE
             "Large Package" -> PackageTypesEnum.LARG_PACKAGE
