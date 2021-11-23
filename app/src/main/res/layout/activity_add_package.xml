@@ -8,7 +8,6 @@
     tools:context=".AddPackage">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addPkgTextAddresseeName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPkgTextAddresseeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Addressee Name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addPkgTextAddresseeAddress"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPkgTextAddresseeAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Addressee Address" />
@@ -57,7 +57,6 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addPkgTextWeight"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +65,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPkgTextWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Weight"
@@ -97,7 +97,6 @@
         android:orientation="horizontal"
         android:weightSum="1">
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/addPkgTextLongitude"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -107,13 +106,13 @@
             android:layout_weight="0.5">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addPkgTextLongitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Longitude" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/addPkgTextLatitude"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -123,6 +122,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addPkgTextLatitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Latitude"/>
