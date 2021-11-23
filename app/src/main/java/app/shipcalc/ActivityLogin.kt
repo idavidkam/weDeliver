@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class Login : AppCompatActivity() {
+class ActivityLogin : AppCompatActivity() {
     lateinit var createAccountButton: Button
     lateinit var loginButton: Button
 
@@ -17,14 +17,14 @@ class Login : AppCompatActivity() {
         //move to next page - homepage
         loginButton = findViewById(R.id.login_button)
         loginButton.setOnClickListener{
-            startActivity(Intent(this@Login, HomeActivity::class.java))
+            startActivity(Intent(this@ActivityLogin, ActivityHome::class.java))
         }
 
 
         //move to next page - create account
         createAccountButton = findViewById<Button>(R.id.create_account_Button)
         createAccountButton.setOnClickListener{
-            startActivity(Intent(this@Login, signin::class.java))
+            startActivity(Intent(this@ActivityLogin, ActivitySignin::class.java))
         }
 
 

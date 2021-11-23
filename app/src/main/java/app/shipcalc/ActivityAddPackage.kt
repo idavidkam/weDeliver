@@ -1,6 +1,9 @@
 package app.shipcalc
 
 import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -11,7 +14,7 @@ import java.lang.Exception
 /**
  * This class is about to add a new package for delivery
  */
-class AddPackage : AppCompatActivity() {
+class ActivityAddPackage : AppCompatActivity() {
 
     // List for dropdown menu of package types
     val TypesList = listOf("Envelop", "Small Package", "Large Package")
@@ -50,37 +53,85 @@ class AddPackage : AppCompatActivity() {
 
         sendButten.setOnClickListener {
             try {
-
+                var flagIsEmpty : Boolean = false
                 // find view
-                var isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile).isChecked
-                var packageType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).text.toString()
-                var pkgWeight = findViewById<TextInputEditText>(R.id.addPkgTextWeight).text.toString()
-                var lang = findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text.toString()
-                var lat = findViewById<TextInputEditText>(R.id.addPkgTextLatitude).text.toString()
                 var pkgName = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).text.toString()
                 var pkgAddress = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).text.toString()
+                var pkgType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).text.toString()
+                var pkgWeight = findViewById<TextInputEditText>(R.id.addPkgTextWeight).text.toString()
+                var isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile).isChecked
+                var lang = findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text.toString()
+                var lat = findViewById<TextInputEditText>(R.id.addPkgTextLatitude).text.toString()
 
-
+                // Validate there is not empty fields
+                if(pkgName == ""){
+                    findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).
+                    error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                if(pkgAddress == ""){
+                    findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).
+                    error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                if(pkgType == ""){
+                    findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).
+                    error = getString(R.string.selectType)
+                    flagIsEmpty = true
+                }
+                if(pkgWeight == ""){
+                    findViewById<TextInputEditText>(R.id.addPkgTextWeight).
+                    error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                if(lang == ""){
+                    findViewById<TextInputEditText>(R.id.addPkgTextLongitude).
+                    error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                if(lat == ""){
+                    findViewById<TextInputEditText>(R.id.addPkgTextLatitude).
+                    error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                if(flagIsEmpty){
+                    return@setOnClickListener
+                }
+                // Validate correction weight
+                var calcWeight:String =  calculateWeight(pkgWeight,pkgType)
+                if (calcWeight != "") {
+                    Toast.makeText(this, calcWeight, Toast.LENGTH_SHORT).show()
+                    findViewById<TextInputEditText>(R.id.addPkgTextWeight).
+                    error = getString(R.string.enterValue)
+                    return@setOnClickListener
+                }
 
                 addPackage(
                     PackageDeliver(
-                        convertPackageTypeToEnum(packageType),
+                        convertPackageTypeToEnum(pkgType),
                         isFragileCB,
                         pkgWeight.toDouble(),
                         Coordinate(lang.toDouble(), lat.toDouble()),
                         pkgName,
                         pkgAddress
                     ))
-                Toast.makeText(this, "The package was sent successfully", Toast.LENGTH_SHORT).show()
 
-                //clear view
-                findViewById<TextInputEditText>(R.id.addPkgTextWeight).text?.clear()
-                findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text?.clear()
-                findViewById<TextInputEditText>(R.id.addPkgTextLatitude).text?.clear()
-                findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).text?.clear()
-                findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).text?.clear()
+                val positiveButtonClick = {dialog: DialogInterface,which:Int ->
+                    startActivity(Intent(this@ActivityAddPackage, ActivityHome::class.java))
+                }
 
-            } catch (E: Exception) {
+                val alertSuccessBuilder = AlertDialog.Builder(this)
+                alertSuccessBuilder.setTitle("Package added")
+                    .setMessage("The package was added successfully!")
+                    .setIcon(R.drawable.ic_baseline_done_24)
+                    .setPositiveButton("OK",DialogInterface.OnClickListener(positiveButtonClick))
+                val alertDialog = alertSuccessBuilder.create()
+                alertDialog.show()
+
+
+            }
+
+            catch (E: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
                 alertDialogBuilder.setTitle("ERROR")
                     .setMessage("We apologize but an error occurred while trying to send the information\n\n" + E.toString())
@@ -89,7 +140,19 @@ class AddPackage : AppCompatActivity() {
                 alertDialog.show()
                 myRef.child("ERRORS").child("ERROR ${++errorCounter}").setValue(E.toString())
             }
+
         }
+    }
+
+    fun calculateWeight(pkgWeight: String, pkgType: String):String {
+        var weight: Double = pkgWeight.toDouble()
+        var type: PackageTypesEnum = convertPackageTypeToEnum(pkgType)
+
+        if (type == PackageTypesEnum.ENVELOPE && weight > 0.5)
+            return "An envelope can weigh no more than 500 grams"
+        else if(type == PackageTypesEnum.SMALL_PACKAGE && weight > 3.0)
+            return "An small package can weigh no more than 3 kg"
+        return ""
     }
 
 
