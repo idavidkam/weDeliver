@@ -123,11 +123,11 @@ class ActivityAddPackage : AppCompatActivity() {
                 val alertSuccessBuilder = AlertDialog.Builder(this)
                 alertSuccessBuilder.setTitle("Package added")
                     .setMessage("The package was added successfully!")
-                    .setIcon(R.drawable.ic_baseline_done_24)
+                    .setIcon(R.drawable.ic_baseline_done_25)
                     .setPositiveButton("OK",DialogInterface.OnClickListener(positiveButtonClick))
+                    .setCancelable(false)
                 val alertDialog = alertSuccessBuilder.create()
                 alertDialog.show()
-
 
             }
 
