@@ -6,6 +6,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.FirebaseDatabase
@@ -42,11 +45,23 @@ class ActivityAddPackage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_package)
+        supportActionBar?.hide()
 
         deliveryType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes)
         val adapter: ArrayAdapter<*> =
             ArrayAdapter(applicationContext, R.layout.package_type_dropdown, TypesList)
         (deliveryType as? AutoCompleteTextView)?.setAdapter(adapter)
+
+        // cancel the error if package changed
+        deliveryType.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                deliveryType.error = null
+            }
+        })
 
         //findView
         sendButten = findViewById<Button>(R.id.addPkgButtonSend)
@@ -57,7 +72,7 @@ class ActivityAddPackage : AppCompatActivity() {
                 // find view
                 var pkgName = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).text.toString()
                 var pkgAddress = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).text.toString()
-                var pkgType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).text.toString()
+                var pkgType = deliveryType.text.toString()
                 var pkgWeight = findViewById<TextInputEditText>(R.id.addPkgTextWeight).text.toString()
                 var isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile).isChecked
                 var lang = findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text.toString()
@@ -75,8 +90,7 @@ class ActivityAddPackage : AppCompatActivity() {
                     flagIsEmpty = true
                 }
                 if(pkgType == ""){
-                    findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes).
-                    error = getString(R.string.selectType)
+                    deliveryType.error = getString(R.string.selectType)
                     flagIsEmpty = true
                 }
                 if(pkgWeight == ""){
@@ -101,8 +115,7 @@ class ActivityAddPackage : AppCompatActivity() {
                 var calcWeight:String =  calculateWeight(pkgWeight,pkgType)
                 if (calcWeight != "") {
                     Toast.makeText(this, calcWeight, Toast.LENGTH_SHORT).show()
-                    findViewById<TextInputEditText>(R.id.addPkgTextWeight).
-                    error = getString(R.string.enterValue)
+                    deliveryType.error = getString(R.string.ChangePackage)
                     return@setOnClickListener
                 }
 
@@ -117,7 +130,7 @@ class ActivityAddPackage : AppCompatActivity() {
                     ))
 
                 val positiveButtonClick = {dialog: DialogInterface,which:Int ->
-                    startActivity(Intent(this@ActivityAddPackage, ActivityHome::class.java))
+                    finish()
                 }
 
                 val alertSuccessBuilder = AlertDialog.Builder(this)
@@ -130,7 +143,6 @@ class ActivityAddPackage : AppCompatActivity() {
                 alertDialog.show()
 
             }
-
             catch (E: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
                 alertDialogBuilder.setTitle("ERROR")
@@ -152,6 +164,8 @@ class ActivityAddPackage : AppCompatActivity() {
             return "An envelope can weigh no more than 500 grams"
         else if(type == PackageTypesEnum.SMALL_PACKAGE && weight > 3.0)
             return "An small package can weigh no more than 3 kg"
+        else if(weight <= 0.0)
+            return "The package can not weigh less than zero"
         return ""
     }
 

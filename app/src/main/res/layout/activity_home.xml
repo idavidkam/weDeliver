@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="hello {user_first_name}"
+        android:text="hello Everyone"
         android:textSize="30dp"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"/>
@@ -23,7 +23,6 @@
         android:layout_margin="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <Button
             android:id="@+id/home_button_addPackage"
