@@ -47,7 +47,7 @@ class ActivityAddPackage : AppCompatActivity() {
         refErr.get().addOnSuccessListener {
             errorCounter=(it.value.toString().toInt())
         }
-        val refCounter =FirebaseDatabase.getInstance().getReference("ErrorCounter")
+        val refCounter =FirebaseDatabase.getInstance().getReference("NewPackageCounter")
         refCounter.get().addOnSuccessListener {
             counter=(it.value.toString().toInt())
         }
@@ -169,7 +169,7 @@ class ActivityAddPackage : AppCompatActivity() {
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
                 myRef.child("ERRORS").child("ERROR ${++errorCounter}").setValue(E.toString())
-                myRef.child("Counter").child("ERRORS").setValue(errorCounter)
+                myRef.child("ErrorCounter").setValue(errorCounter)
             }
 
         }
@@ -209,7 +209,7 @@ class ActivityAddPackage : AppCompatActivity() {
             .setValue(packageDeliver.coor.longitude.toString())
         addRef.child("coordinate").child("latitude")
             .setValue(packageDeliver.coor.latitude.toString())
-        myRef.child("Counter").child("NewPackage").setValue(counter)
+        myRef.child("NewPackageCounter").setValue(counter)
 
     }
 }
