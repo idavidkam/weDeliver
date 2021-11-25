@@ -42,10 +42,17 @@ class ActivityAddPackage : AppCompatActivity() {
     var counter: Int = 0
     var errorCounter: Int = 0
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_package)
         supportActionBar?.hide()
+
+        //setCounter
+        counter = databade.getReference("Counter/NewPackage").get().toString().toInt()
+        errorCounter =  databade.getReference("Counter/ERRORS").get().toString().toInt()
+
 
         deliveryType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes)
         val adapter: ArrayAdapter<*> =
@@ -151,6 +158,7 @@ class ActivityAddPackage : AppCompatActivity() {
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
                 myRef.child("ERRORS").child("ERROR ${++errorCounter}").setValue(E.toString())
+                myRef.child("Counter").child("ERRORS").setValue(errorCounter)
             }
 
         }
@@ -190,5 +198,7 @@ class ActivityAddPackage : AppCompatActivity() {
             .setValue(packageDeliver.coor.longitude.toString())
         addRef.child("coordinate").child("latitude")
             .setValue(packageDeliver.coor.latitude.toString())
+        myRef.child("Counter").child("NewPackage").setValue(counter)
+
     }
 }
