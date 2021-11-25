@@ -85,7 +85,6 @@ class ActivityAddPackage : AppCompatActivity() {
 
                 //setCounter
                 readCounter()
-                Toast.makeText(this, "counter: ${counter}, errorCounter: ${errorCounter}", Toast.LENGTH_SHORT).show()
 
                 var flagIsEmpty : Boolean = false
                 // find view
