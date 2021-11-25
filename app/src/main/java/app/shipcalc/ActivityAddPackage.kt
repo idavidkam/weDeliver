@@ -25,10 +25,11 @@ class ActivityAddPackage : AppCompatActivity() {
     // Variables for controls
     lateinit var deliveryType: AutoCompleteTextView
     lateinit var sendButten: Button
+    lateinit var pkgWeightTET: TextInputEditText
 
     /*lateinit var isFragileCB: CheckBox
     lateinit var packageType: EditText
-    lateinit var pkgWeight: EditText
+
     lateinit var lang: EditText
     lateinit var lat: EditText
     lateinit var pkgName: EditText
@@ -53,8 +54,11 @@ class ActivityAddPackage : AppCompatActivity() {
         counter = databade.getReference("Counter/NewPackage").get().toString().toInt()
         errorCounter =  databade.getReference("Counter/ERRORS").get().toString().toInt()
 
-
+        //findView
+        sendButten = findViewById<Button>(R.id.addPkgButtonSend)
+        pkgWeightTET = findViewById<TextInputEditText>(R.id.addPkgTextWeight)
         deliveryType = findViewById<AutoCompleteTextView>(R.id.addPkgTextPackageTypes)
+
         val adapter: ArrayAdapter<*> =
             ArrayAdapter(applicationContext, R.layout.package_type_dropdown, TypesList)
         (deliveryType as? AutoCompleteTextView)?.setAdapter(adapter)
@@ -69,9 +73,16 @@ class ActivityAddPackage : AppCompatActivity() {
                 deliveryType.error = null
             }
         })
+        pkgWeightTET.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                deliveryType.error = null
+            }
+        })
 
-        //findView
-        sendButten = findViewById<Button>(R.id.addPkgButtonSend)
 
         sendButten.setOnClickListener {
             try {
@@ -80,7 +91,7 @@ class ActivityAddPackage : AppCompatActivity() {
                 var pkgName = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeName).text.toString()
                 var pkgAddress = findViewById<TextInputEditText>(R.id.addPkgTextAddresseeAddress).text.toString()
                 var pkgType = deliveryType.text.toString()
-                var pkgWeight = findViewById<TextInputEditText>(R.id.addPkgTextWeight).text.toString()
+                var pkgWeight = pkgWeightTET.text.toString()
                 var isFragileCB = findViewById<CheckBox>(R.id.addPkgCBisFragile).isChecked
                 var lang = findViewById<TextInputEditText>(R.id.addPkgTextLongitude).text.toString()
                 var lat = findViewById<TextInputEditText>(R.id.addPkgTextLatitude).text.toString()
@@ -101,7 +112,7 @@ class ActivityAddPackage : AppCompatActivity() {
                     flagIsEmpty = true
                 }
                 if(pkgWeight == ""){
-                    findViewById<TextInputEditText>(R.id.addPkgTextWeight).
+                    pkgWeightTET.
                     error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
