@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_pickAPackage"
+            android:icon="@drawable/ic_baseline_pick_new_package_24"
+            android:title="Pick new package" />
+        <item
+            android:id="@+id/nav_waitingPackaged"
+            android:icon="@drawable/ic_baseline_assignment_24"
+            android:title="Waiting packages" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_baseline_package_history_24"
+            android:title="History" />
+    </group>
+
+    <item android:title="Yours packages">
+        <menu>
+            <item
+                android:id="@+id/nav_addPackage"
+                android:icon="@drawable/ic_baseline_add_package_24"
+                android:title="Add new package" />
+            <item
+                android:id="@+id/nav_editPackage"
+                android:icon="@drawable/ic_baseline_edit_package_note_24"
+                android:title="Edit yours packages" />
+        </menu>
+
+    </item>
+
+</menu>
