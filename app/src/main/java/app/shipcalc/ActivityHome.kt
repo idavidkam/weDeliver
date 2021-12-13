@@ -13,7 +13,7 @@ class ActivityHome : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        Toolbar toolbar = findViewById(R.id.toolBar)
+        var toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
         /*addPackageButton = findViewById(R.id.home_button_addPackage)
         addPackageButton.setOnClickListener {
