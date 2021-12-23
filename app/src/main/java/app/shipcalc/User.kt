@@ -1,7 +1,6 @@
 package app.shipcalc
 
 class User(
-    Id: Int,
     FirstName: String,
     LastName: String,
     PhoneNumber: String,
@@ -9,11 +8,6 @@ class User(
 ) {
     // Need to check how to make it constant
     // Fields with getters and setters
-    private var id: Int = Id
-        get() = field
-        private set(value) {
-            field = value
-        }
 
     private var firstName: String = FirstName
         get() = field
