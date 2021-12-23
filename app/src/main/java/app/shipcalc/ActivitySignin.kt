@@ -7,46 +7,42 @@ import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 
 class ActivitySignin : AppCompatActivity() {
-    /*lateinit var firstName: TextInputEditText
-    lateinit var lastName: TextInputEditText
-    lateinit var phoneNumber: TextInputEditText
-    lateinit var password: TextInputEditText*/
-    lateinit var signinButton: Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
         supportActionBar?.hide()
+
         var flagIsEmpty : Boolean = false
-        var firstName = findViewById<TextInputEditText>(R.id.signin_fName).text.toString()
-        var lastName = findViewById<TextInputEditText>(R.id.signin_lName).text.toString()
-        var phoneNumber = findViewById<TextInputEditText>(R.id.signin_phone).text.toString()
-        var password = findViewById<TextInputEditText>(R.id.signin_password).text.toString()
+        var firstName = findViewById<TextInputEditText>(R.id.signin_fName)
+        var lastName = findViewById<TextInputEditText>(R.id.signin_lName)
+        var phoneNumber = findViewById<TextInputEditText>(R.id.signin_phone)
+        var password = findViewById<TextInputEditText>(R.id.signin_password)
+        var signinButton = findViewById<Button>(R.id.signin_button)
 
-        if (firstName == ""){
-            findViewById<TextInputEditText>(R.id.addPkgTextWeight).
-            error = getString(R.string.enterValue)
-            flagIsEmpty = true
+        signinButton.setOnClickListener {
+
+            // Validate there is not empty fields
+            if (firstName.text.toString() == ""){
+                firstName.error = getString(R.string.enterValue)
+                flagIsEmpty = true
+            }
+            if (lastName.text.toString() == ""){
+                lastName.error = getString(R.string.enterValue)
+                flagIsEmpty = true
+            }
+            if (phoneNumber.text.toString() == ""){
+                phoneNumber.error = getString(R.string.enterValue)
+                flagIsEmpty = true
+            }
+            if (password.text.toString() == ""){
+                password.error = getString(R.string.enterValue)
+                flagIsEmpty = true
+            }
+            if(flagIsEmpty)
+                return@setOnClickListener
+
+
         }
-
-        if (lastName == ""){
-            findViewById<TextInputEditText>(R.id.addPkgTextWeight).
-            error = getString(R.string.enterValue)
-            flagIsEmpty = true
-        }
-
-        if (phoneNumber == ""){
-            findViewById<TextInputEditText>(R.id.addPkgTextWeight).
-            error = getString(R.string.enterValue)
-            flagIsEmpty = true
-        }
-
-        if (password == ""){
-            findViewById<TextInputEditText>(R.id.addPkgTextWeight).
-            error = getString(R.string.enterValue)
-            flagIsEmpty = true
-        }
-
     }
 }
