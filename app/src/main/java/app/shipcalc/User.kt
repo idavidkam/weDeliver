@@ -9,25 +9,25 @@ class User(
     // Need to check how to make it constant
     // Fields with getters and setters
 
-    private var firstName: String = FirstName
+    var firstName: String = FirstName
         get() = field
         private set(value) {
             field = value
         }
 
-    private var lastName: String = LastName
+    var lastName: String = LastName
         get() = field
         private set(value) {
             field = value
         }
 
-    private var phoneNumber: String = PhoneNumber
+    var phoneNumber: String = PhoneNumber
         get() = field
         private set(value) {
             field = value
         }
 
-    private var password: String = Password
+    var password: String = Password
         get() = field
         private set(value) {
             field = value

@@ -1,6 +1,7 @@
 package app.shipcalc
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -95,19 +96,24 @@ class ActivitySignin : AppCompatActivity() {
                 }
             // registering the user
                 var editor: SharedPreferences.Editor = mySharedPreferences.edit()
+                editor.putString("LastPhoneNumber", phoneNumber.text.toString())
                 editor.putString(phoneNumber.text.toString(), password.text.toString())
+                editor.apply()
                 repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
                 phoneNumber.text.toString(),password.text.toString()))
+
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
                 alertDialogBuilder.setTitle("ERROR")
-                    .setMessage("We apologize but an error occurred while trying to send the information\n\n" + e.toString())
+                    .setMessage("An error occurred in the registration\n\n$e")
                     .setIcon(R.drawable.ic_baseline_error_24)
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
             }
-
-
+            Toast.makeText(this, "The account was created successfully", Toast.LENGTH_SHORT)
+                .show()
+            startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))
+            finish()
         }
     }
 }
