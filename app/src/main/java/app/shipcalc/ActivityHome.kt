@@ -18,9 +18,12 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawer: DrawerLayout
     lateinit var addPackageButton: Button
 
+    lateinit var extra : Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        // פה נתקענו כשמנסים לקבל מידע
+        //var currentUser : String = extra.getString("currentUser","").toString()
         //TODO("validate the drawer is in left side in the phone")
         var toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)

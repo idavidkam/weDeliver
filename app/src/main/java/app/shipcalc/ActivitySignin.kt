@@ -33,32 +33,6 @@ class ActivitySignin : AppCompatActivity() {
         var password = findViewById<TextInputEditText>(R.id.signin_password)
         var signinButton = findViewById<Button>(R.id.signin_button)
 
-/*
-
-        firstName.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().contains('/')){
-                    Toast.makeText(this@ActivitySignin, R.string.slashIsNotAllowed,
-                        Toast.LENGTH_SHORT).show()
-                    var changeView :TextView = firstName as TextView
-                    changeView.text = s.toString().dropLast(1)
-                    changeView.setText(R.string.app_name)
-                    //changeView.requestFocus()
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().contains('/')) {
-
-                }
-            }
-        })
-*/
-
         signinButton.setOnClickListener {
             try {
 
@@ -81,9 +55,6 @@ class ActivitySignin : AppCompatActivity() {
                 }
                 if (flagIsEmpty)
                     return@setOnClickListener
-
-                // TODO: validate the phone doesn't registered yet
-                // todo: add user details to share preference + firebase (via the repository)
 
                 var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
                 // Validate the account is not existed
@@ -110,7 +81,7 @@ class ActivitySignin : AppCompatActivity() {
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
             }
-            Toast.makeText(this, "The account was created successfully", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "The account has created successfully", Toast.LENGTH_SHORT)
                 .show()
             startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))
             finish()
