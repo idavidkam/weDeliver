@@ -5,14 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.internal.NavigationMenu
-import com.google.android.material.internal.ToolbarUtils
 import com.google.android.material.navigation.NavigationView
 import java.lang.Exception
 
@@ -26,10 +26,6 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // get the user phone
-        var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
-        // get the user by his phone
-        user = repository.getUser(currentUserPhone)
 
         //TODO("validate the drawer is in left side in the phone")
         var toolbar: Toolbar = findViewById(R.id.toolBar)
@@ -45,6 +41,24 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        try {
+            // get the user phone
+            var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
+            // get the user by his phone
+            user = repository.getUser(currentUserPhone)
+
+            // find the Header view in order to change username in the nav_drawer
+            var headerNav: View = navigationView.getHeaderView(0)
+            var textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
+            textHeaderNav.setText("Hello ${user.firstName} ${user.lastName}")
+        } catch (e: Exception) {
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle("ERROR")
+                .setMessage("Error occurred in header set\n\n${e}")
+                .setIcon(R.drawable.ic_baseline_error_24)
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
 
         /*addPackageButton = findViewById(R.id.home_button_addPackage)
         addPackageButton.setOnClickListener {
