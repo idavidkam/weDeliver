@@ -1,5 +1,6 @@
 package app.shipcalc
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,17 +14,23 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.internal.ToolbarUtils
 import com.google.android.material.navigation.NavigationView
+import java.lang.Exception
 
 class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
     lateinit var addPackageButton: Button
+    val repository: Repository = Repository()
+    lateinit var user: User
 
-    lateinit var extra : Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        // פה נתקענו כשמנסים לקבל מידע
-        //var currentUser : String = extra.getString("currentUser","").toString()
+
+        // get the user phone
+        var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
+        // get the user by his phone
+        user = repository.getUser(currentUserPhone)
+
         //TODO("validate the drawer is in left side in the phone")
         var toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
