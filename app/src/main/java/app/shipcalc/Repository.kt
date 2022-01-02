@@ -14,7 +14,6 @@ public class Repository {
     // fire base
     var databade = FirebaseDatabase.getInstance()
     var myRef = databade.getReference()
-    val myRefUsers = databade.getReference("NewUser")
 
     fun addUser(user: User) {
         var addRef = myRef.child("NewUser").child("User_${user.phoneNumber}")
@@ -33,11 +32,12 @@ public class Repository {
         var password: String = ""
         lateinit var user12: User
 
+        val myRefUsers = myRef.child("NewUser").child("User_${phoneNumber}")
         myRefUsers.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (userSnapshot in snapshot.children) {
-                        var user = userSnapshot.getValue(User::class.java)
+                        var user: User? = userSnapshot.getValue(User::class.java)
                         if (user?.phoneNumber == phoneNumber) {
                             fName = user?.firstName
                             lName = user?.lastName.toString()
