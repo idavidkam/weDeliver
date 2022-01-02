@@ -1,7 +1,10 @@
 package app.shipcalc
 
 import android.app.AlertDialog
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
@@ -11,6 +14,7 @@ public class Repository {
     // fire base
     var databade = FirebaseDatabase.getInstance()
     var myRef = databade.getReference()
+    val myRefUsers = databade.getReference("NewUser")
 
     fun addUser(user: User) {
         var addRef = myRef.child("NewUser").child("User_${user.phoneNumber}")
@@ -20,33 +24,37 @@ public class Repository {
         addRef.child("userPassword").setValue(user.password.toString())
     }
 
+
     fun getUser(phoneNumber: String): User {
 
         var fName: String = ""
         var lName: String = ""
+        var phoneNumber: String = ""
         var password: String = ""
-        var success: Boolean = true
-        val refUser = FirebaseDatabase.getInstance().getReference("NewUser")
-        refUser.child("User_${phoneNumber}").child("userFirstName").get().addOnSuccessListener {
-            fName = (it.value.toString())
-        }.addOnFailureListener {
-            success = false
-        }
-        refUser.child("User_${phoneNumber}").child("userLastName").get().addOnSuccessListener {
-            lName = (it.value.toString())
-        }.addOnFailureListener {
-            success = false
-        }
-        refUser.child("User_${phoneNumber}").child("userPassword").get().addOnSuccessListener {
-            password = (it.value.toString())
-        }.addOnFailureListener {
-            success = false
-        }
-        if (!success) {
-            throw Exception("communication problem")
-        } else {
-            return User(fName, lName, phoneNumber, password)
-        }
+        lateinit var user12: User
+
+        myRefUsers.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (userSnapshot in snapshot.children) {
+                        var user = userSnapshot.getValue(User::class.java)
+                        if (user?.phoneNumber == phoneNumber) {
+                            fName = user?.firstName
+                            lName = user?.lastName.toString()
+                            phoneNumber = user?.phoneNumber.toString()
+                            password = user?.password.toString()
+                        }
+                        user12 = User(fName, lName, phoneNumber, password)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                throw Exception("Connection problem")
+            }
+
+        })
+        return user12
     }
 
 
