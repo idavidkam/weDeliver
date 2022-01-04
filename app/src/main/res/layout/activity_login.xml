@@ -36,8 +36,8 @@
                 android:id="@+id/login_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="Phone Number" />
+                android:inputType="textEmailAddress"
+                android:hint="Email Address" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

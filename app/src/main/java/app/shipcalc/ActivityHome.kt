@@ -45,6 +45,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // get the user phone
             var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
             // get the user by his phone
+            //TODO - get the User if eh registered
             //user = repository.getUser(currentUserPhone)
 
             // find the Header view in order to change username in the nav_drawer
@@ -59,12 +60,6 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
-
-        /*addPackageButton = findViewById(R.id.home_button_addPackage)
-        addPackageButton.setOnClickListener {
-            startActivity(Intent(this@ActivityHome, ActivityAddPackage::class.java))
-
-        }*/
     }
 
     override fun onBackPressed() {
