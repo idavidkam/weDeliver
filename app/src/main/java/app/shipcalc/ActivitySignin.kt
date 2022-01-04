@@ -70,8 +70,8 @@ class ActivitySignin : AppCompatActivity() {
                 editor.putString("LastPhoneNumber", phoneNumber.text.toString())
                 editor.putString(phoneNumber.text.toString(), password.text.toString())
                 editor.apply()
-                repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
-                phoneNumber.text.toString(),password.text.toString()))
+                // TODO repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
+                // TODO phoneNumber.text.toString(),password.text.toString()))
 
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)

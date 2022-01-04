@@ -3,11 +3,24 @@ package app.shipcalc
 class User(
     FirstName: String,
     LastName: String,
-    PhoneNumber: String,
+    Email: String,
     Password: String
 ) {
     // Need to check how to make it constant
     // Fields with getters and setters
+
+    fun setUser(
+        fName: String,
+        lName: String,
+        emailInput: String,
+        password: String
+    ) : User{
+        this.firstName = fName
+        this.lastName = lName
+        this.email = emailInput
+        this.password = password
+        return this
+    }
 
     var firstName: String = FirstName
         get() = field
@@ -21,7 +34,7 @@ class User(
             field = value
         }
 
-    var phoneNumber: String = PhoneNumber
+    var email: String = Email
         get() = field
         private set(value) {
             field = value

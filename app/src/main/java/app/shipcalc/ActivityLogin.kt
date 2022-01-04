@@ -5,11 +5,12 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class ActivityLogin : AppCompatActivity() {
+    lateinit var auth : FirebaseAuth
     lateinit var createAccountButton: Button
     lateinit var loginButton: Button
     lateinit var mySharedPreferences: SharedPreferences
@@ -20,7 +21,7 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
-        phoneNumberET = findViewById(R.id.login_phone)
+        phoneNumberET = findViewById(R.id.login_email)
         passwordET = findViewById(R.id.login_password)
 
         var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)

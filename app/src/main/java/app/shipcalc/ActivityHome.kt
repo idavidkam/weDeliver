@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import java.lang.Exception
 
 class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -22,10 +23,11 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val repository: Repository = Repository()
     lateinit var user: User
 
+    var auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
 
         //TODO("validate the drawer is in left side in the phone")
         var toolbar: Toolbar = findViewById(R.id.toolBar)
