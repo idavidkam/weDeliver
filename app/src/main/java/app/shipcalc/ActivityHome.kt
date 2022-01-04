@@ -45,7 +45,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // get the user phone
             var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
             // get the user by his phone
-            user = repository.getUser(currentUserPhone)
+            //user = repository.getUser(currentUserPhone)
 
             // find the Header view in order to change username in the nav_drawer
             var headerNav: View = navigationView.getHeaderView(0)
