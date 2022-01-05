@@ -13,11 +13,18 @@ import java.lang.Exception
 
 public class Repository {
 
-private lateinit var mAuto : FirebaseAuth
+    private lateinit var mAuto: FirebaseAuth
+    private var dataBase = FirebaseDatabase.getInstance()
+    private val refMyPakcages = dataBase.getReference("packages")
 
-init {
-    mAuto = FirebaseAuth.getInstance()
-}
+    init {
+        mAuto = FirebaseAuth.getInstance()
+    }
+
+    fun getPackages(list: Array<Package>)
+    {
+
+    }
 
     //TODO להעביר את הפיירבייס הזה לאקטיביטי סיינאין כי זה צריך לעבור בין אקטיביטי שונים
     /*fun addUser(user : User){

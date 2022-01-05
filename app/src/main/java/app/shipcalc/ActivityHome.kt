@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -19,9 +17,13 @@ import java.lang.Exception
 
 class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
-    lateinit var addPackageButton: Button
     val repository: Repository = Repository()
     lateinit var user: User
+
+    // TEST12
+    lateinit var listViewPickPackage: ListView
+    var listPackages = arrayListOf<Package>()
+
 
     var auth = FirebaseAuth.getInstance()
 
@@ -62,6 +64,11 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
+        //TEST12
+        listViewPickPackage = findViewById(R.id.ListViewPickPackage)
+        var arrayAdapter : ArrayAdapter<*> = ArrayAdapter(this, android.R.layout.simple_list_item_1,listPackages )
+        listViewPickPackage.setAdapter(arrayAdapter)
+
     }
 
     override fun onBackPressed() {
@@ -92,11 +99,9 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     FragmentHistoryPackages()
                 ).commit()
             }
-            R.id.nav_addPackage -> {
-                startActivity(Intent(this, ActivityAddPackage::class.java))
-            }
-            R.id.nav_editPackage -> {
-                Toast.makeText(this, "coming soon...", Toast.LENGTH_LONG)
+            R.id.nav_logout -> {
+                //TODO Clear sheredPrefences and logout from the firebase
+                startActivity(Intent(this, ActivityLogin::class.java))
             }
             else -> {
             }

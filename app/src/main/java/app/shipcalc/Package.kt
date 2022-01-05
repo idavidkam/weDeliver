@@ -1,13 +1,21 @@
 package app.shipcalc
 
-class PackageDeliver(
+class Package(
     packageType: PackageTypesEnum,
     isFragile: Boolean,
     weight: Double,
     coor: Coordinate,
     name: String,
-    address: String
+    address: String,
+    statusEnum: PackageStatusEnum
 ) {
+    var id : String = ""
+        get() = field
+
+    var status: PackageStatusEnum = statusEnum
+
+    var deliveryGuy: String = ""
+
     var packageType: PackageTypesEnum = packageType
         get() = field
         private set(value) {
@@ -23,7 +31,7 @@ class PackageDeliver(
         private set(value) {
             field = value
         }
-    var coor: Coordinate = coor
+    var coordinate: Coordinate = coor
         get() = field
         private set(value) {
             field = value
