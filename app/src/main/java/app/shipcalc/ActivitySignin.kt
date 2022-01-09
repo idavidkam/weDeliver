@@ -42,14 +42,15 @@ class ActivitySignin : AppCompatActivity() {
                     email.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
+                else if (!isValidEmail(email.text.toString())) {
+                    email.error = "Email should be like a@b.c"
+                    flagIsEmpty = true
+                }
                 if (password.text.toString() == "") {
                     password.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (!isValidEmail(email.text.toString())) {
-                    email.error = "Email should be like a@b.c"
-                    flagIsEmpty = true
-                }
+
                 if (flagIsEmpty)
                     return@setOnClickListener
 
