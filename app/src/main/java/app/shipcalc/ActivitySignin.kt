@@ -70,6 +70,10 @@ class ActivitySignin : AppCompatActivity() {
                 editor.apply()
                 repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
                 email.text.toString(),password.text.toString()), this)
+                Toast.makeText(this, "The account has created successfully", Toast.LENGTH_SHORT)
+                    .show()
+                startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))
+                finish()
 
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
@@ -79,10 +83,6 @@ class ActivitySignin : AppCompatActivity() {
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
             }
-            Toast.makeText(this, "The account has created successfully", Toast.LENGTH_SHORT)
-                .show()
-            startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))
-            finish()
         }
     }
     private fun isValidEmail(em : String): Boolean{
