@@ -17,7 +17,8 @@ public class Repository {
 
     private lateinit var mAuto: FirebaseAuth
     private var dataBase = FirebaseDatabase.getInstance()
-    private val refMyPakcages = dataBase.getReference("packages")
+    private val myRefPackages = dataBase.getReference("packages")
+    private val myRefUsers = dataBase.getReference("usersDetails")
 
     init {
         mAuto = FirebaseAuth.getInstance()
@@ -33,6 +34,8 @@ public class Repository {
         addOnCompleteListener(activityLogin, OnCompleteListener<AuthResult>{ task ->
             when {
                 task.isSuccessful -> {
+                    user.id = myRefUsers.push().key.toString()
+                    myRefUsers.child(user.id).setValue(user)
                    return@OnCompleteListener
                 }
             }
@@ -45,6 +48,7 @@ public class Repository {
     }
 
     fun getUser(userID : String):User{
+
 
         throw Exception("")
     }

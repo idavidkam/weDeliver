@@ -45,4 +45,7 @@ class User(
         private set(value) {
             field = value
         }
+
+    var id: String = ""
+        get() = field
 }
