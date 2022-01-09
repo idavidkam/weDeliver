@@ -47,7 +47,7 @@ class ActivitySignin : AppCompatActivity() {
                     flagIsEmpty = true
                 }
                 if (!isValidEmail(email.text.toString())) {
-                    password.error = "Email should be like a@b.c"
+                    email.error = "Email should be like a@b.c"
                     flagIsEmpty = true
                 }
                 if (flagIsEmpty)
