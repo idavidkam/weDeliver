@@ -46,6 +46,10 @@ class ActivitySignin : AppCompatActivity() {
                     password.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
+                if (!isValidEmail(email.text.toString())) {
+                    password.error = "Email should be like a@b.c"
+                    flagIsEmpty = true
+                }
                 if (flagIsEmpty)
                     return@setOnClickListener
 
@@ -80,5 +84,8 @@ class ActivitySignin : AppCompatActivity() {
             startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))
             finish()
         }
+    }
+    private fun isValidEmail(em : String): Boolean{
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(em).matches()
     }
 }
