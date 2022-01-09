@@ -14,52 +14,52 @@ class ActivityLogin : AppCompatActivity() {
     lateinit var createAccountButton: Button
     lateinit var loginButton: Button
     lateinit var mySharedPreferences: SharedPreferences
-    lateinit var phoneNumberET: TextInputEditText
+    lateinit var emailET: TextInputEditText
     lateinit var passwordET: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
-        phoneNumberET = findViewById(R.id.login_email)
+        emailET = findViewById(R.id.login_email)
         passwordET = findViewById(R.id.login_password)
 
         var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
-        var phoneNumber: String = mySharedPreferences.getString("LastPhoneNumber", "").toString()
-        if (phoneNumber != "") {
-            phoneNumberET.setText(phoneNumber)
-            passwordET.setText(mySharedPreferences.getString(phoneNumber, ""))
+        var email: String = mySharedPreferences.getString("LastUser", "").toString()
+        if (email != "") {
+            emailET.setText(email)
+            passwordET.setText(mySharedPreferences.getString(email, ""))
         }
 
         //move to next page - homepage
         loginButton = findViewById(R.id.login_button)
 
         loginButton.setOnClickListener {
-            if (passwordET.text.toString().isEmpty() || phoneNumberET.text.toString().isEmpty()) {
+            if (passwordET.text.toString().isEmpty() || emailET.text.toString().isEmpty()) {
                 Toast.makeText(
                     this,
-                    "The password or phone number can't be empty",
+                    "The password or email fields can't be empty",
                     Toast.LENGTH_SHORT
                 )
                     .show()
             }
             else if (passwordET.text.toString() != (mySharedPreferences.getString(
-                    phoneNumberET.text.toString(),
+                    emailET.text.toString(),
                     ""
                 ).toString())
-                || (mySharedPreferences.getString(phoneNumberET.text.toString(), "")
+                || (mySharedPreferences.getString(emailET.text.toString(), "")
                     .toString()).isEmpty()
             ) {
                 Toast.makeText(
                     this,
-                    "The password or phone number is not correct",
+                    "The password or email fields is not correct",
                     Toast.LENGTH_SHORT
                 )
                     .show()
             }
             else {
                 var i :  Intent = Intent(this@ActivityLogin, ActivityHome::class.java)
-                i.putExtra("currentUser",phoneNumberET.text.toString())
+                i.putExtra("currentUser",emailET.text.toString())
                 startActivity(i)
                 finish()
             }
