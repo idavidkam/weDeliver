@@ -23,9 +23,9 @@ class ActivityMain : AppCompatActivity() {
 
 
         Handler().postDelayed({
-            var phoneNumber: String =
-                mySharedPreferences.getString("lastPhoneNumber", "").toString()
-            if (phoneNumber == "") {
+            var email: String =
+                mySharedPreferences.getString("lastUser", "").toString()
+            if (email == "") {
                 startActivity(Intent(this@ActivityMain, ActivityLogin::class.java))
                 finish()
             } else {
