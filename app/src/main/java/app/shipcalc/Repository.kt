@@ -2,6 +2,8 @@ package app.shipcalc
 
 import android.app.AlertDialog
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -26,14 +28,24 @@ public class Repository {
 
     }
 
-    //TODO להעביר את הפיירבייס הזה לאקטיביטי סיינאין כי זה צריך לעבור בין אקטיביטי שונים
-    /*fun addUser(user : User){
+    fun addUser(user : User, activityLogin: ActivitySignin){
         mAuto.createUserWithEmailAndPassword(user.email,user.password).
-        addOnCompleteListener(this, OnCompleteListener<AuthResult>() {
-
+        addOnCompleteListener(activityLogin, OnCompleteListener<AuthResult>{ task ->
+            when {
+                task.isSuccessful -> {
+                   return@OnCompleteListener
+                }
+            }
+        } ).addOnFailureListener(activityLogin, OnFailureListener {
+           throw Exception("Failed to register email ${user.email}")
         })
 
 
-    }*/
 
+    }
+
+    fun getUser(userID : String):User{
+
+        throw Exception("")
+    }
 }

@@ -5,15 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.Spanned
-import android.text.TextWatcher
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.text.set
 import com.google.android.material.textfield.TextInputEditText
 
 class ActivitySignin : AppCompatActivity() {
@@ -29,7 +22,7 @@ class ActivitySignin : AppCompatActivity() {
 
         var firstName = findViewById<TextInputEditText>(R.id.signin_fName)
         var lastName = findViewById<TextInputEditText>(R.id.signin_lName)
-        var phoneNumber = findViewById<TextInputEditText>(R.id.signin_phone)
+        var email = findViewById<TextInputEditText>(R.id.signin_email)
         var password = findViewById<TextInputEditText>(R.id.signin_password)
         var signinButton = findViewById<Button>(R.id.signin_button)
 
@@ -45,8 +38,8 @@ class ActivitySignin : AppCompatActivity() {
                     lastName.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (phoneNumber.text.toString() == "") {
-                    phoneNumber.error = getString(R.string.enterValue)
+                if (email.text.toString() == "") {
+                    email.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
                 if (password.text.toString() == "") {
@@ -58,20 +51,21 @@ class ActivitySignin : AppCompatActivity() {
 
                 var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
                 // Validate the account is not existed
-                var tempPhone: String =
-                    mySharedPreferences.getString(phoneNumber.text.toString(), "").toString()
-                if (tempPhone != "") {
-                    Toast.makeText(this, "${tempPhone} has an account already", Toast.LENGTH_SHORT)
+                // TODO validate from firebase.authentication the user not existed
+                var tempEmail: String =
+                    mySharedPreferences.getString(email.text.toString(), "").toString()
+                if (tempEmail != "") {
+                    Toast.makeText(this, "There is an account for this email already", Toast.LENGTH_SHORT)
                         .show()
                     return@setOnClickListener
                 }
             // registering the user
                 var editor: SharedPreferences.Editor = mySharedPreferences.edit()
-                editor.putString("LastPhoneNumber", phoneNumber.text.toString())
-                editor.putString(phoneNumber.text.toString(), password.text.toString())
+                editor.putString("LastUser", email.text.toString())
+                editor.putString(email.text.toString(), password.text.toString())
                 editor.apply()
-                // TODO repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
-                // TODO phoneNumber.text.toString(),password.text.toString()))
+                repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
+                email.text.toString(),password.text.toString()), this)
 
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
