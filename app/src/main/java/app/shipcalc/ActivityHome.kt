@@ -20,10 +20,10 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val repository: Repository = Repository()
     lateinit var user: User
 
-    /*// TEST12
+    // TEST12
     lateinit var listViewPickPackage: ListView
     var listPackages = arrayListOf<Package>()
-*/
+
 
     var auth = FirebaseAuth.getInstance()
 
@@ -64,10 +64,12 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
-        /*//TEST12
+/*
+        //TEST12
         listViewPickPackage = findViewById(R.id.ListViewPickPackage)
         var arrayAdapter : ArrayAdapter<*> = ArrayAdapter(this, android.R.layout.simple_list_item_1,listPackages )
-        listViewPickPackage.setAdapter(arrayAdapter)*/
+        listViewPickPackage.setAdapter(arrayAdapter)
+*/
 
     }
 
