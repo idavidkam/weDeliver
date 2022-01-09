@@ -20,12 +20,10 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val repository: Repository = Repository()
     lateinit var user: User
 
-    // TEST12
+/*    // TEST12
     lateinit var listViewPickPackage: ListView
     var listPackages = arrayListOf<Package>()
-
-
-    var auth = FirebaseAuth.getInstance()
+    var auth = FirebaseAuth.getInstance()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

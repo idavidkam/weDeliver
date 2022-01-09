@@ -28,6 +28,7 @@ class ActivitySignin : AppCompatActivity() {
 
         signinButton.setOnClickListener {
             try {
+                flagIsEmpty = false
 
                 // Validate there is not empty fields
                 if (firstName.text.toString() == "") {

@@ -18,30 +18,28 @@ public class Repository {
         mAuto = FirebaseAuth.getInstance()
     }
 
-    fun getPackages(list: Array<Package>)
-    {
+    fun getPackages(list: Array<Package>) {
 
     }
 
-    fun addUser(user : User, activitySignin: ActivitySignin){
-        mAuto.createUserWithEmailAndPassword(user.email,user.password).
-        addOnCompleteListener(activitySignin, OnCompleteListener<AuthResult>{ task ->
-            when {
-                task.isSuccessful -> {
-                    user.id = myRefUsers.push().key.toString()
-                    myRefUsers.child(user.id).setValue(user)
-                   return@OnCompleteListener
+    fun addUser(user: User, activitySignin: ActivitySignin) {
+        mAuto.createUserWithEmailAndPassword(user.email, user.password)
+            .addOnCompleteListener(activitySignin, OnCompleteListener<AuthResult> { task ->
+                when {
+                    task.isSuccessful -> {
+                        user.id = myRefUsers.push().key.toString()
+                        myRefUsers.child(user.id).setValue(user)
+                        return@OnCompleteListener
+                    }
                 }
-            }
-        } ).addOnFailureListener(activitySignin, OnFailureListener {
-           throw Exception("Failed to register email ${user.email}")
+            }).addOnFailureListener(activitySignin, OnFailureListener {
+            throw Exception("Failed to register email ${user.email}")
         })
 
 
-
     }
 
-    fun getUser(userID : String):User{
+    fun getUser(userID: String): User {
 
 
         throw Exception("")
