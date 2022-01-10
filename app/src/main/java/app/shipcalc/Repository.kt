@@ -1,10 +1,14 @@
 package app.shipcalc
 
+import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
@@ -22,23 +26,9 @@ class Repository {
 
     }
 
-    fun addUser(user: User, activitySignin: ActivitySignin) {
-        var success: Boolean = false
-        var erroe: String = ""
-        mAuto.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnCompleteListener(activitySignin) {
-                if (it.isSuccessful) {
-                    success = true
-                    user.id = myRefUsers.push().key.toString()
-                    myRefUsers.child(user.id).setValue(user)
-                } else {
-                   success = false
-                    erroe = it.exception.toString()
-                }
-            }
-
-        if(!success)
-            throw Exception("This email is already exited")
+    fun addUser(user: User) {
+        user.id = myRefUsers.push().key.toString()
+        myRefUsers.child(user.id).setValue(user)
     }
 
 
@@ -55,9 +45,33 @@ class Repository {
     }
 
     fun getUser(email: String, password: String): User {
-        myRefUsers.addValueEventListener(object : ValueEventListener)
-        {
+       /* lateinit var returnUser: User
 
+        myRefUsers.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (userSnapshot in snapshot.children){
+                    val user = userSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        if(user.email == email && user.password == password){
+                            returnUser = user
+                        }
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        try{
+            if (returnUser.email == "")
+                returnUser.id = ""
         }
+        catch (e: Exception){
+            throw Exception("No user found")
+        }
+
+        return returnUser*/
+        return User("ytt","cdwvjf",email,password)
     }
 }
