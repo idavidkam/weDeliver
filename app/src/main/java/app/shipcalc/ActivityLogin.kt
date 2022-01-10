@@ -7,15 +7,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
+import java.lang.Exception
 
 class ActivityLogin : AppCompatActivity() {
-    lateinit var auth : FirebaseAuth
-    lateinit var createAccountButton: Button
-    lateinit var loginButton: Button
-    lateinit var mySharedPreferences: SharedPreferences
-    lateinit var emailET: TextInputEditText
-    lateinit var passwordET: TextInputEditText
+    private lateinit var createAccountButton: Button
+    private lateinit var loginButton: Button
+    private lateinit var mySharedPreferences: SharedPreferences
+    private lateinit var emailET: TextInputEditText
+    private lateinit var passwordET: TextInputEditText
+    private val repository: Repository = Repository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +24,8 @@ class ActivityLogin : AppCompatActivity() {
         emailET = findViewById(R.id.login_email)
         passwordET = findViewById(R.id.login_password)
 
-        var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
-        var email: String = mySharedPreferences.getString("LastUser", "").toString()
+        mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
+        val email: String = mySharedPreferences.getString("LastUser", "").toString()
         if (email != "") {
             emailET.setText(email)
             passwordET.setText(mySharedPreferences.getString(email, ""))
@@ -58,7 +58,14 @@ class ActivityLogin : AppCompatActivity() {
                     .show()
             }
             else {
-                var i :  Intent = Intent(this@ActivityLogin, ActivityHome::class.java)
+                try {
+                    repository.logInFirebase(emailET.text.toString(),passwordET.text.toString(), this)
+                }
+                catch(e: Exception){
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                val i  = Intent(this@ActivityLogin, ActivityHome::class.java)
                 i.putExtra("currentUser",emailET.text.toString())
                 startActivity(i)
                 finish()
@@ -67,7 +74,7 @@ class ActivityLogin : AppCompatActivity() {
 
 
         //move to next page - create account
-        createAccountButton = findViewById<Button>(R.id.create_account_Button)
+        createAccountButton = findViewById(R.id.create_account_Button)
         createAccountButton.setOnClickListener {
             startActivity(Intent(this@ActivityLogin, ActivitySignin::class.java))
         }

@@ -12,31 +12,25 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import java.lang.Exception
 
 class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
-    val repository: Repository = Repository()
-    lateinit var user: User
-
-/*    // TEST12
-    lateinit var listViewPickPackage: ListView
-    var listPackages = arrayListOf<Package>()
-    var auth = FirebaseAuth.getInstance()*/
+    private val repository: Repository = Repository()
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         //TODO("validate the drawer is in left side in the phone")
-        var toolbar: Toolbar = findViewById(R.id.toolBar)
+        val toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-        var navigationView: NavigationView = findViewById(R.id.nav_view)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-        var toggle = ActionBarDrawerToggle(
+        val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -45,14 +39,15 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         try {
             // get the user phone
-            var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
+            //var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
             // get the user by his phone
             //TODO - get the User if eh registered
             //user = repository.getUser(currentUserPhone)
+            user = repository.getUser("ww","ww")
 
             // find the Header view in order to change username in the nav_drawer
-            var headerNav: View = navigationView.getHeaderView(0)
-            var textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
+            val headerNav: View = navigationView.getHeaderView(0)
+            val textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
             textHeaderNav.setText("Hello ${user.firstName} ${user.lastName}")
         } catch (e: Exception) {
             val alertDialogBuilder = AlertDialog.Builder(this)
@@ -62,13 +57,6 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
-/*
-        //TEST12
-        listViewPickPackage = findViewById(R.id.ListViewPickPackage)
-        var arrayAdapter : ArrayAdapter<*> = ArrayAdapter(this, android.R.layout.simple_list_item_1,listPackages )
-        listViewPickPackage.setAdapter(arrayAdapter)
-*/
-
     }
 
     override fun onBackPressed() {
@@ -78,6 +66,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -100,7 +89,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ).commit()
             }
             R.id.nav_logout -> {
-                //TODO Clear sheredPrefences and logout from the firebase
+                //TODO Clear shearedPreferences and logout from the firebase
                 startActivity(Intent(this, ActivityLogin::class.java))
             }
             else -> {

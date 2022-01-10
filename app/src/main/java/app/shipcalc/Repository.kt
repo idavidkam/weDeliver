@@ -1,22 +1,19 @@
 package app.shipcalc
 
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.auth.AuthResult
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.lang.Exception
 
-public class Repository {
 
-    private lateinit var mAuto: FirebaseAuth
+
+
+class Repository {
+
+    private var mAuto: FirebaseAuth = FirebaseAuth.getInstance()
     private var dataBase = FirebaseDatabase.getInstance()
     private val myRefPackages = dataBase.getReference("packages")
     private val myRefUsers = dataBase.getReference("usersDetails")
-
-    init {
-        mAuto = FirebaseAuth.getInstance()
-    }
 
     fun getPackages(list: Array<Package>) {
 
@@ -24,24 +21,40 @@ public class Repository {
 
     fun addUser(user: User, activitySignin: ActivitySignin) {
         mAuto.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnCompleteListener(activitySignin, OnCompleteListener<AuthResult> { task ->
+            .addOnCompleteListener(activitySignin)
+            { task ->
                 when {
                     task.isSuccessful -> {
                         user.id = myRefUsers.push().key.toString()
                         myRefUsers.child(user.id).setValue(user)
-                        return@OnCompleteListener
+                        Toast.makeText(activitySignin, "ssssssss", Toast.LENGTH_SHORT).show()
+                        return@addOnCompleteListener
                     }
                 }
-            }).addOnFailureListener(activitySignin, OnFailureListener {
+            }.addOnFailureListener(activitySignin) {
+                Toast.makeText(activitySignin, "tttttttt", Toast.LENGTH_SHORT).show()
             throw Exception("Failed to register email ${user.email}")
-        })
+
+        }
 
 
     }
 
-    fun getUser(userID: String): User {
+    fun logInFirebase(email: String, password:String, activityLogin: ActivityLogin){
+        mAuto.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(activityLogin){
+                if(!it.isComplete)
+                    throw Exception("log in Fails")
+            }
+    }
 
-
+    fun getLastUserFromFirebase() : User
+    {
         throw Exception("")
+    }
+
+    fun getUser(email: String, password: String) : User
+    {
+        return User("TEST","TEST", email, password)
     }
 }

@@ -65,13 +65,13 @@ class ActivitySignin : AppCompatActivity() {
                         .show()
                     return@setOnClickListener
                 }
-            // registering the user
+                // registering the user
+                repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
+                    email.text.toString(),password.text.toString()), this)
                 var editor: SharedPreferences.Editor = mySharedPreferences.edit()
                 editor.putString("LastUser", email.text.toString())
                 editor.putString(email.text.toString(), password.text.toString())
                 editor.apply()
-                repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
-                email.text.toString(),password.text.toString()), this)
                 Toast.makeText(this, "The account has created successfully", Toast.LENGTH_SHORT)
                     .show()
                 startActivity(Intent(this@ActivitySignin,ActivityHome::class.java))

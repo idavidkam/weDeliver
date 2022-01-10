@@ -30,7 +30,6 @@ class ActivityMain : AppCompatActivity() {
                 finish()
             } else {
                 try {
-                    //var user: User = repository.getUser(phoneNumber)
                     startActivity(Intent(this@ActivityMain, ActivityHome::class.java))
                 }catch (e: Exception)
                 {
@@ -43,7 +42,5 @@ class ActivityMain : AppCompatActivity() {
                 }
             }
         }, 1000)
-
-        // test
     }
 }
