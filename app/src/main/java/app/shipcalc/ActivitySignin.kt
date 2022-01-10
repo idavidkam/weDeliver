@@ -51,6 +51,10 @@ class ActivitySignin : AppCompatActivity() {
                     password.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
+                else if(password.text.toString().length < 6) {
+                    password.error = "password length can't be small then 6 characters"
+                    flagIsEmpty = true
+                }
 
                 if (flagIsEmpty)
                     return@setOnClickListener
