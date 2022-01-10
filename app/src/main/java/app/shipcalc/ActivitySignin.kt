@@ -31,24 +31,28 @@ class ActivitySignin : AppCompatActivity() {
                 flagIsEmpty = false
 
                 // Validate there is not empty fields
-                if (firstName.text.toString() == "") {
+                if (firstName.text.toString().isBlank()) {
                     firstName.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (lastName.text.toString() == "") {
+                if (lastName.text.toString().isBlank()) {
                     lastName.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (email.text.toString() == "") {
+                if (email.text.toString().isBlank()) {
                     email.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
                 else if (!isValidEmail(email.text.toString())) {
-                    email.error = "Email should be like a@b.c"
+                    email.error = "Email should be like example@example.example"
                     flagIsEmpty = true
                 }
-                if (password.text.toString() == "") {
+                if (password.text.toString().isBlank()) {
                     password.error = getString(R.string.enterValue)
+                    flagIsEmpty = true
+                }
+                else if(password.text.toString().length < 6) {
+                    password.error = "password length can't be small then 6 characters"
                     flagIsEmpty = true
                 }
 
