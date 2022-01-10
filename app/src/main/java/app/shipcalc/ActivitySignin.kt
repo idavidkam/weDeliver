@@ -79,8 +79,9 @@ class ActivitySignin : AppCompatActivity() {
                         ), this
                     )
                 }catch (e: Exception){
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT)
                         .show()
+                    return@setOnClickListener
                 }
                 var editor: SharedPreferences.Editor = mySharedPreferences.edit()
                 editor.putString("LastUser", email.text.toString())
