@@ -13,17 +13,17 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class ActivitySignin : AppCompatActivity() {
-    lateinit var mySharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
         supportActionBar?.hide()
 
+        // define variables
         var flagIsEmpty: Boolean = false
         var repository: Repository = Repository()
         var mAuto: FirebaseAuth = Firebase.auth
 
+        // create pointers to the fields
         var firstName = findViewById<TextInputEditText>(R.id.signin_fName)
         var lastName = findViewById<TextInputEditText>(R.id.signin_lName)
         var email = findViewById<TextInputEditText>(R.id.signin_email)
@@ -46,55 +46,69 @@ class ActivitySignin : AppCompatActivity() {
                 if (email.text.toString().isBlank()) {
                     email.error = getString(R.string.enterValue)
                     flagIsEmpty = true
-                } else if (!isValidEmail(email.text.toString())) {
+                }
+                // validate the email struct is a valid email
+                else if (!isValidEmail(email.text.toString())) {
                     email.error = "Email should be like example@example.example"
                     flagIsEmpty = true
                 }
                 if (password.text.toString().isBlank()) {
                     password.error = getString(R.string.enterValue)
                     flagIsEmpty = true
-                } else if (password.text.toString().length < 6) {
+                }
+                // validate the password is long Enough
+                else if (password.text.toString().length < 6) {
                     password.error = "password length can't be small then 6 characters"
                     flagIsEmpty = true
                 }
 
+                // return to activity if there is any not correct fields
                 if (flagIsEmpty)
                     return@setOnClickListener
 
-                // registering the user
+                // define the share preference
+                 var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
+                // registering the user to the firebase.authentication
                 mAuto.createUserWithEmailAndPassword(
                     email.text.toString(),
                     password.text.toString()
                 )
                     .addOnCompleteListener(this) {
+                        // validate the user is added to the firebase.authentication
                         if (it.isSuccessful) {
+                            // add the user details to the realtime DB
                             repository.addUser(
                                 User(
                                     firstName.text.toString(), lastName.text.toString(),
                                     email.text.toString(), password.text.toString()
                                 )
                             )
-                        } else {
+
+                            // add the new user to share preference
+                            var editor: SharedPreferences.Editor = mySharedPreferences.edit()
+                            editor.putString("LastUser", email.text.toString())
+                            editor.putString(email.text.toString(), password.text.toString())
+                            editor.apply()
+                            // inform the user that is added successfully
                             Toast.makeText(
                                 this,
-                                "There is an account for this email already",
+                                "The account has created successfully",
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
+                            // finish the activity and start the ActivityHome
+                            startActivity(Intent(this@ActivitySignin, ActivityHome::class.java))
                             finish()
                         }
+                    } // inform the user when the account could not be created and do nothing
+                    .addOnFailureListener{
+                        Toast.makeText(
+                            this,
+                            "There is an account for this email already",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                var editor: SharedPreferences.Editor = mySharedPreferences.edit()
-                editor.putString("LastUser", email.text.toString())
-                editor.putString(email.text.toString(), password.text.toString())
-                editor.apply()
-                Toast.makeText(
-                    this,
-                    "The account has created successfully",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                startActivity(Intent(this@ActivitySignin, ActivityHome::class.java))
-                finish()
+
 
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
@@ -107,6 +121,7 @@ class ActivitySignin : AppCompatActivity() {
         }
     }
 
+    // validate the email has correct struct
     private fun isValidEmail(em: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(em).matches()
     }
