@@ -31,15 +31,15 @@ class ActivitySignin : AppCompatActivity() {
                 flagIsEmpty = false
 
                 // Validate there is not empty fields
-                if (firstName.text.toString() == "") {
+                if (firstName.text.toString().isBlank()) {
                     firstName.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (lastName.text.toString() == "") {
+                if (lastName.text.toString().isBlank()) {
                     lastName.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
-                if (email.text.toString() == "") {
+                if (email.text.toString().isBlank()) {
                     email.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
@@ -47,7 +47,7 @@ class ActivitySignin : AppCompatActivity() {
                     email.error = "Email should be like a@b.c"
                     flagIsEmpty = true
                 }
-                if (password.text.toString() == "") {
+                if (password.text.toString().isBlank()) {
                     password.error = getString(R.string.enterValue)
                     flagIsEmpty = true
                 }
