@@ -65,9 +65,19 @@ class ActivitySignin : AppCompatActivity() {
                         .show()
                     return@setOnClickListener
                 }
+
                 // registering the user
-                repository.addUser(User(firstName.text.toString(),lastName.text.toString(),
-                    email.text.toString(),password.text.toString()), this)
+                try {
+                    repository.addUser(
+                        User(
+                            firstName.text.toString(), lastName.text.toString(),
+                            email.text.toString(), password.text.toString()
+                        ), this
+                    )
+                }catch (e: Exception){
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT)
+                        .show()
+                }
                 var editor: SharedPreferences.Editor = mySharedPreferences.edit()
                 editor.putString("LastUser", email.text.toString())
                 editor.putString(email.text.toString(), password.text.toString())

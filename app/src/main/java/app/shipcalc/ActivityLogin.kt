@@ -62,7 +62,7 @@ class ActivityLogin : AppCompatActivity() {
                     repository.logInFirebase(emailET.text.toString(),passwordET.text.toString(), this)
                 }
                 catch(e: Exception){
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "log in failed", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 val i  = Intent(this@ActivityLogin, ActivityHome::class.java)
