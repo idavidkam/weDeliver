@@ -24,6 +24,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val repository: Repository = Repository()
     private var dataBase = FirebaseDatabase.getInstance()
     private val myRefUsers = dataBase.getReference("usersDetails")
+    private val tempListUser = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,28 +50,29 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         try {
             // get user details
-            myRefUsers.addListenerForSingleValueEvent(object: ValueEventListener{
+            myRefUsers.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         for (userSnapshot in snapshot.children) {
                             try {
-                                val user: User? = userSnapshot.getValue(User::class.java)
-                                if (user != null) {
-                                    if (user.email == FirebaseAuth.getInstance().currentUser?.email?.toString()) {
+                                var userEmail =
+                                    userSnapshot.child("email").getValue(String::class.java)
 
-                                        // set the header
-                                        textHeaderNav.setText("Hello ${user.firstName} ${user.lastName}")
+                                if (userEmail == FirebaseAuth.getInstance().currentUser?.email?.toString()) {
 
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "success in header set",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        return
-                                    }
+                                    var firstName = userSnapshot.child("firstName").getValue(String::class.java)
+                                    var lastName = userSnapshot.child("lastName").getValue(String::class.java)
+                                    // set the header
+                                    textHeaderNav.setText("Hello ${firstName} ${lastName}")
+
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "success in header set",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    return
                                 }
-                            }
-                            catch (e: Exception){
+                            } catch (e: Exception) {
                                 Toast.makeText(
                                     applicationContext,
                                     "failed in header set${e}",

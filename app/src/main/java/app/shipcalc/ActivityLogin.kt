@@ -56,7 +56,7 @@ class ActivityLogin : AppCompatActivity() {
             ) {
                 Toast.makeText(
                     this,
-                    "The password or email fields is not correct",
+                    R.string.login_failed,
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -79,7 +79,7 @@ class ActivityLogin : AppCompatActivity() {
                         .addOnFailureListener {
                             Toast.makeText(
                                 this,
-                                "log in failed",
+                                R.string.login_failed,
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

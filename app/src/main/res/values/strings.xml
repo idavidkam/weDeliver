@@ -11,4 +11,5 @@
     <string name="pick_package">Pick package</string>
     <string name="wait_package">Waiting packages</string>
     <string name="history_package">"My Package History "</string>
+    <string name="login_failed">The password or email fields is not correct</string>
 </resources>
