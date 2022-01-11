@@ -12,6 +12,15 @@ class FragmentPickPackage : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
+
+
+
+
+
+
         return inflater.inflate(R.layout.fragment_pick_package,container,false)
     }
 }

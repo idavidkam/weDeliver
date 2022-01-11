@@ -22,56 +22,18 @@ class Repository {
     private val myRefPackages = dataBase.getReference("packages")
     private val myRefUsers = dataBase.getReference("usersDetails")
 
-    fun getPackages(list: Array<Package>) {
-
-    }
-
     fun addUser(user: User) {
         user.id = myRefUsers.push().key.toString()
         myRefUsers.child(user.id).setValue(user)
     }
 
+    fun getPackages() {
+        var packagesList = mutableListOf<Package>()
+        val childEventListener = object : ChildEventListener{
 
-    fun logInFirebase(email: String, password: String, activityLogin: ActivityLogin) {
-        mAuto.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(activityLogin) {
-                if (!it.isComplete)
-                    throw Exception("log in Fails")
-            }
-    }
 
-    fun getLastUserFromFirebase(): String? {
-        return FirebaseAuth.getInstance().currentUser?.email
-    }
-
-    fun getUser(email: String, password: String): User {
-       /* lateinit var returnUser: User
-
-        myRefUsers.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (userSnapshot in snapshot.children){
-                    val user = userSnapshot.getValue(User::class.java)
-                    if (user != null) {
-                        if(user.email == email && user.password == password){
-                            returnUser = user
-                        }
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-        try{
-            if (returnUser.email == "")
-                returnUser.id = ""
         }
-        catch (e: Exception){
-            throw Exception("No user found")
-        }
-
-        return returnUser*/
-        return User("ytt","cdwvjf",email,password)
     }
+
+
 }

@@ -19,7 +19,6 @@ class ActivityLogin : AppCompatActivity() {
     private lateinit var mySharedPreferences: SharedPreferences
     private lateinit var emailET: TextInputEditText
     private lateinit var passwordET: TextInputEditText
-    private val repository: Repository = Repository()
     var mAuto: FirebaseAuth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
