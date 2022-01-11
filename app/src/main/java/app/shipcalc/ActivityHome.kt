@@ -12,12 +12,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.lang.Exception
 
 class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
     private val repository: Repository = Repository()
-    private lateinit var user: User
+    private var dataBase = FirebaseDatabase.getInstance()
+    private val myRefUsers = dataBase.getReference("usersDetails")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +43,50 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        try {
-            // get the user phone
-            //var currentUserPhone: String = intent.getStringExtra("currentUser").toString()
-            // get the user by his phone
-            //TODO - get the User if eh registered
-            //user = repository.getUser(currentUserPhone)
-            user = repository.getUser("ww","ww")
+        // find the Header view in order to change username in the nav_drawer
+        val headerNav: View = navigationView.getHeaderView(0)
+        val textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
 
-            // find the Header view in order to change username in the nav_drawer
-            val headerNav: View = navigationView.getHeaderView(0)
-            val textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
-            textHeaderNav.setText("Hello ${user.firstName} ${user.lastName}")
+        try {
+            // get user details
+            myRefUsers.addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        for (userSnapshot in snapshot.children) {
+                            try {
+                                val user: User? = userSnapshot.getValue(User::class.java)
+                                if (user != null) {
+                                    if (user.email == FirebaseAuth.getInstance().currentUser?.email?.toString()) {
+
+                                        // set the header
+                                        textHeaderNav.setText("Hello ${user.firstName} ${user.lastName}")
+
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "success in header set",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        return
+                                    }
+                                }
+                            }
+                            catch (e: Exception){
+                                Toast.makeText(
+                                    applicationContext,
+                                    "failed in header set${e}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    throw Exception("get user details from firebase error")
+                }
+
+            })
         } catch (e: Exception) {
             val alertDialogBuilder = AlertDialog.Builder(this)
             alertDialogBuilder.setTitle("ERROR")

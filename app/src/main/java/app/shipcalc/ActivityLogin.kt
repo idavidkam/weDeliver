@@ -1,5 +1,6 @@
 package app.shipcalc
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
 class ActivityLogin : AppCompatActivity() {
@@ -16,6 +20,7 @@ class ActivityLogin : AppCompatActivity() {
     private lateinit var emailET: TextInputEditText
     private lateinit var passwordET: TextInputEditText
     private val repository: Repository = Repository()
+    var mAuto: FirebaseAuth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +47,7 @@ class ActivityLogin : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-            }
-            else if (passwordET.text.toString() != (mySharedPreferences.getString(
+            } else if (passwordET.text.toString() != (mySharedPreferences.getString(
                     emailET.text.toString(),
                     ""
                 ).toString())
@@ -56,19 +60,38 @@ class ActivityLogin : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-            }
-            else {
+            } else {
                 try {
-                    repository.logInFirebase(emailET.text.toString(),passwordET.text.toString(), this)
+                    // signIn the user to the firebase.authentication
+                    mAuto.signInWithEmailAndPassword(
+                        emailET.text.toString(),
+                        passwordET.text.toString()
+                    )
+                        .addOnCompleteListener(this) {
+                            // validate the user is sign in successfully to the firebase.authentication
+                            if (it.isSuccessful) {
+                                // finish the activity and start the ActivityHome
+                                val i = Intent(this@ActivityLogin, ActivityHome::class.java)
+                                startActivity(i)
+                                finish()
+                            }
+                        } // inform the user when the log in failed
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                this,
+                                "log in failed",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                } catch (e: Exception) {
+                    val alertDialogBuilder = AlertDialog.Builder(this)
+                    alertDialogBuilder.setTitle("ERROR")
+                        .setMessage("An error occurred in the registration\n\n$e")
+                        .setIcon(R.drawable.ic_baseline_error_24)
+                    val alertDialog = alertDialogBuilder.create()
+                    alertDialog.show()
                 }
-                catch(e: Exception){
-                    Toast.makeText(this, "log in failed", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                val i  = Intent(this@ActivityLogin, ActivityHome::class.java)
-                i.putExtra("currentUser",emailET.text.toString())
-                startActivity(i)
-                finish()
+
             }
         }
 

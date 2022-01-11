@@ -40,8 +40,8 @@ class Repository {
             }
     }
 
-    fun getLastUserFromFirebase(): FirebaseUser? {
-        return FirebaseAuth.getInstance().currentUser
+    fun getLastUserFromFirebase(): String? {
+        return FirebaseAuth.getInstance().currentUser?.email
     }
 
     fun getUser(email: String, password: String): User {
