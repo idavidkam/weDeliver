@@ -1,7 +1,7 @@
 package app.shipcalc
 
-class Coordinate(Longitude: Double, Latitude: Double) {
-    var longitude: Double = 0.0
+data class Coordinate(val longitude: Double? =null, var latitude: Double? = null) {
+    /*var : Double = 0.0
         get() = field
         set(value) {
             field = value
@@ -15,5 +15,5 @@ class Coordinate(Longitude: Double, Latitude: Double) {
     init {
         latitude = Latitude
         longitude = Longitude
-    }
+    }*/
 }

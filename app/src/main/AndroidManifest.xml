@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShipCalc">
         <activity
-            android:name=".ActivityAddPackage"
-            android:exported="true" />
-        <activity
             android:name=".ActivitySignin"
             android:exported="false" />
         <activity
