@@ -1,5 +1,6 @@
 package app.shipcalc
 
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -20,39 +21,63 @@ class Repository {
         myRefUsers.child(user.id).setValue(user)
     }
 
-    /*fun getPackages() : ArrayList<Package>{
-       *//* var tempPackagesList = mutableListOf<Package>()
-        val childEventListener = object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val myPackageValue = snapshot.getValue<Package>()
-                val myPackageKey = snapshot.key
+    fun getPickPackages(liveData: ArrayList<Package>) {
 
-                if (myPackageValue != null && myPackageKey != null) {
-                    //if (myPackageValue.status == PackageStatus.TOPICKUP)
-                    tempPackagesList.add(myPackageValue)
+        myRefPackages.addChildEventListener(object :ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                for(packageSnapshot in snapshot.children) {
+                    val myPackageValue = packageSnapshot.getValue<Package>()
+                    val myPackageKey = packageSnapshot.key
+
+                    if (myPackageValue != null && myPackageKey != null) {
+                        if (myPackageValue.status == PackageStatusEnum.READY)
+                            liveData.add(myPackageValue)
+                    }
                 }
-                packagesList.postValue(tempPackagesList)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                for(packageSnapshot in snapshot.children) {
+                    val myPackageValue = packageSnapshot.getValue<Package>()
+                    val myPackageKey = packageSnapshot.key
+
+                    if (myPackageValue != null && myPackageKey != null) {
+                        if (myPackageValue.status == PackageStatusEnum.READY)
+                            liveData.add(myPackageValue)
+                    }
+                }
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
+                for(packageSnapshot in snapshot.children) {
+                    val myPackageValue = packageSnapshot.getValue<Package>()
+                    val myPackageKey = packageSnapshot.key
+
+                    if (myPackageValue != null && myPackageKey != null) {
+                        if (myPackageValue.status == PackageStatusEnum.READY)
+                            liveData.add(myPackageValue)
+                    }
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                for(packageSnapshot in snapshot.children) {
+                    val myPackageValue = packageSnapshot.getValue<Package>()
+                    val myPackageKey = packageSnapshot.key
+
+                    if (myPackageValue != null && myPackageKey != null) {
+                        if (myPackageValue.status == PackageStatusEnum.READY)
+                            liveData.add(myPackageValue)
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                //TODO: Remove
             }
 
-
-        }*//*
-    }*/
-
-
+        })
+    }
 }
+
+

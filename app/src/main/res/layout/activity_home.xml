@@ -36,38 +36,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drower_menu" />
-    <!--<com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drower_menu"/>-->
-
-<!--
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="hello Everyone"
-        android:textSize="30dp"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"/>
-
-    <LinearLayout
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/home_button_addPackage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="add package"
-            android:layout_gravity="bottom"
-            android:textAllCaps="false"
-            />
-    </LinearLayout>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

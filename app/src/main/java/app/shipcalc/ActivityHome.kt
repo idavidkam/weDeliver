@@ -11,6 +11,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -97,6 +99,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
+
     }
 
     override fun onBackPressed() {

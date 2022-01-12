@@ -11,7 +11,7 @@ public class PackagesAdapter(packagesArrayList : ArrayList<Package>)
     var packagesList : ArrayList<Package> = packagesArrayList
 
 
-    public class PackageViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class PackageViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         lateinit var addresseeNameTV : TextView
         lateinit var packageTypeTV : TextView
         init {
@@ -27,7 +27,7 @@ public class PackagesAdapter(packagesArrayList : ArrayList<Package>)
     }
 
     override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
-        var currentPackage = packagesList.get(position)
+        var currentPackage = packagesList[position]
         holder.addresseeNameTV.text = currentPackage.name
         holder.packageTypeTV.text = packageTypeString(currentPackage.packageType)
     }

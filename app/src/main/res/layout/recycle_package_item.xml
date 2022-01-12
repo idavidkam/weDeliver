@@ -55,9 +55,10 @@
     <View
         android:id="@+id/divider"
         android:layout_width="409dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
+        android:backgroundTint="#000000"
         app:layout_constraintStart_toEndOf="@+id/imageView_package"
         app:layout_constraintTop_toBottomOf="@+id/imageView_package" />
 </androidx.constraintlayout.widget.ConstraintLayout>
