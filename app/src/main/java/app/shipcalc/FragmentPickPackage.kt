@@ -48,6 +48,10 @@ class FragmentPickPackage : Fragment(){
         packagesAdapter = PackagesAdapter(packagesList as ArrayList<Package>)
         recycleView.adapter = packagesAdapter
 
+        // for Double click
+        //TODO --
+
+
         super.onViewCreated(view, savedInstanceState)
     }
 }

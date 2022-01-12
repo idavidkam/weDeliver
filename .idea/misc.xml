@@ -9,6 +9,8 @@
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/ic_baseline_smartphone_24.xml" value="0.1" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37592592592592594" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/input_border.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/login_signin_border.xml" value="0.38333333333333336" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/drawable/package_info_border.xml" value="0.275" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_add_package.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/activity_login.xml" value="0.1" />
@@ -19,6 +21,8 @@
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/fragment_history_package.xml" value="0.11875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/fragment_pick_package.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/fragment_waiting_packages.xml" value="0.1796875" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/login_signin_wait.xml" value="0.35597826086956524" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/package_details_dialog.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/package_type_dropdown.xml" value="0.1796875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/layout/recycle_package_item.xml" value="0.3671875" />
         <entry key="..\:/Users/David/AndroidStudioProjects/ShipCalc/app/src/main/res/menu/drower_menu.xml" value="0.2677083333333333" />

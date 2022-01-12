@@ -61,6 +61,12 @@ class ActivityLogin : AppCompatActivity() {
                     .show()
             } else {
                 try {
+
+                    // animationMode
+                    val inflater = layoutInflater.inflate(R.layout.login_signin_wait, null)
+                    val processing = AlertDialog.Builder(this).setView(inflater)
+                    processing.show()
+
                     // signIn the user to the firebase.authentication
                     mAuto.signInWithEmailAndPassword(
                         emailET.text.toString(),

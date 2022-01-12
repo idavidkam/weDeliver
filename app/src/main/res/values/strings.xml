@@ -12,4 +12,5 @@
     <string name="wait_package">Waiting packages</string>
     <string name="history_package">"My Package History "</string>
     <string name="login_failed">The password or email fields is not correct</string>
+    <string name="package_details">Package details</string>
 </resources>

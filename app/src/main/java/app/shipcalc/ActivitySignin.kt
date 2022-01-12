@@ -66,6 +66,11 @@ class ActivitySignin : AppCompatActivity() {
                 if (flagIsEmpty)
                     return@setOnClickListener
 
+                // animationMode
+                val inflater = layoutInflater.inflate(R.layout.login_signin_wait, null)
+                val processing = AlertDialog.Builder(this).setView(inflater)
+                processing.show()
+
                 // define the share preference
                  var mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
                 // registering the user to the firebase.authentication
