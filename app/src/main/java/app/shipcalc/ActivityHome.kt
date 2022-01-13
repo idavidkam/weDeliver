@@ -49,6 +49,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // find the Header view in order to change username in the nav_drawer
         val headerNav: View = navigationView.getHeaderView(0)
         val textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
+        val emailHeaderNav: TextView = headerNav.findViewById(R.id.nav_email)
 
         try {
             // get user details
@@ -64,8 +65,10 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                                     var firstName = userSnapshot.child("firstName").getValue(String::class.java)
                                     var lastName = userSnapshot.child("lastName").getValue(String::class.java)
+                                    var email = userSnapshot.child("email").getValue(String::class.java)
                                     // set the header
-                                    textHeaderNav.setText("Hello ${firstName} ${lastName}")
+                                    textHeaderNav.setText("${firstName} ${lastName}")
+                                    emailHeaderNav.setText("${email}")
 
                                     Toast.makeText(
                                         applicationContext,

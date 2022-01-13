@@ -76,10 +76,8 @@ class FragmentPickPackage : Fragment(){
                     weightTV.text = packages[position].weight.toString()
                     fragileTV.text = packages[position].isFragile.toString()
                     pickBtn?.setOnClickListener {
-                        repository.updatePackage(Package(packages[position].packageType,packages[position].isFragile,
-                            packages[position].weight,packages[position].coordinate,packages[position].name,packages[position].address,
-                        PackageStatusEnum.WAITING,packages[position].id,"test"))
-                        Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show()
+                        repository.updatePackage(packages[position].id,PackageStatusEnum.WAITING,"test1")
+                        Toast.makeText(context,"Congratulations, you delivered the package",Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     }
                     cancelButton?.setOnClickListener{

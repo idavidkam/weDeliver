@@ -22,11 +22,16 @@ class Repository {
         myRefUsers.child(user.id).setValue(user)
     }
 
-    fun updatePackage(updatePackage: Package) {
+    fun updatePackage(id: String?, newStatus: PackageStatusEnum, guy: String) {
 
-        myRefPackages.child(updatePackage.id.toString()).removeValue()
-        updatePackage.id = myRefPackages.push().key.toString()
-        myRefPackages.child(updatePackage.id!!).setValue(updatePackage)
+        val mapStatus = HashMap<String, Any>()
+        mapStatus["status"] = newStatus
+
+        val mapGuy = HashMap<String, Any>()
+        mapGuy["deliveryGuy"] = guy
+
+        myRefPackages.child(id.toString()).updateChildren(mapStatus)
+        myRefPackages.child(id.toString()).updateChildren(mapGuy)
     }
 }
 
