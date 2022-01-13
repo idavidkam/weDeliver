@@ -29,12 +29,6 @@ class ActivityLogin : AppCompatActivity() {
         passwordET = findViewById(R.id.login_password)
 
         mySharedPreferences = getSharedPreferences("registeredUsers", MODE_PRIVATE)
-        val email: String = mySharedPreferences.getString("LastUser", "").toString()
-        if (email != "") {
-            emailET.setText(email)
-            passwordET.setText(mySharedPreferences.getString(email, ""))
-        }
-
         //move to next page - homepage
         loginButton = findViewById(R.id.login_button)
 
