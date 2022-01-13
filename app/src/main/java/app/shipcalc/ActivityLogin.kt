@@ -75,6 +75,13 @@ class ActivityLogin : AppCompatActivity() {
                         .addOnCompleteListener(this) {
                             // validate the user is sign in successfully to the firebase.authentication
                             if (it.isSuccessful) {
+
+                                // add the new user to share preference
+                                var editor: SharedPreferences.Editor = mySharedPreferences.edit()
+                                editor.putString("lastUser",  emailET.text.toString())
+                                editor.putString( emailET.text.toString(),  passwordET.text.toString())
+                                editor.apply()
+
                                 // finish the activity and start the ActivityHome
                                 val i = Intent(this@ActivityLogin, ActivityHome::class.java)
                                 startActivity(i)

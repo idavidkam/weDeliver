@@ -2,7 +2,6 @@ package app.shipcalc
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.provider.AlarmClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class FragmentPickPackage : Fragment(){
+    private var repository: Repository  = Repository()
     private var layoutManager : RecyclerView.LayoutManager? = null
     private var packagesAdapter: RecyclerView.Adapter<PackagesAdapter.PackageViewHolder>? = null
     private lateinit var pickPackageViewModel: PickPackageViewModel
@@ -67,7 +66,7 @@ class FragmentPickPackage : Fragment(){
                     var weightTV: TextView = view.findViewById(R.id.Dweight)
                     var fragileTV: TextView = view.findViewById(R.id.Dfragile)
                     var pickBtn: Button? = view.findViewById(R.id.buttonPick)
-                    var cancelButton: Button? = view.findViewById(R.id.buttonCencel)
+                    var cancelButton: Button? = view.findViewById(R.id.buttonPickCencel)
 
                     //set
                     addresseAddressTV.text = packages[position].address
@@ -77,7 +76,11 @@ class FragmentPickPackage : Fragment(){
                     weightTV.text = packages[position].weight.toString()
                     fragileTV.text = packages[position].isFragile.toString()
                     pickBtn?.setOnClickListener {
-                        Toast.makeText(context,"pic",Toast.LENGTH_SHORT).show()
+                        repository.updatePackage(Package(packages[position].packageType,packages[position].isFragile,
+                            packages[position].weight,packages[position].coordinate,packages[position].name,packages[position].address,
+                        PackageStatusEnum.WAITING,packages[position].id,"test"))
+                        Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
                     }
                     cancelButton?.setOnClickListener{
                         dialog.dismiss()

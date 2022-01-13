@@ -91,7 +91,7 @@ class ActivitySignin : AppCompatActivity() {
 
                             // add the new user to share preference
                             var editor: SharedPreferences.Editor = mySharedPreferences.edit()
-                            editor.putString("LastUser", email.text.toString())
+                            editor.putString("lastUser", email.text.toString())
                             editor.putString(email.text.toString(), password.text.toString())
                             editor.apply()
                             // inform the user that is added successfully

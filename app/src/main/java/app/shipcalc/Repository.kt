@@ -21,6 +21,13 @@ class Repository {
         user.id = myRefUsers.push().key.toString()
         myRefUsers.child(user.id).setValue(user)
     }
+
+    fun updatePackage(updatePackage: Package) {
+
+        myRefPackages.child(updatePackage.id.toString()).removeValue()
+        updatePackage.id = myRefPackages.push().key.toString()
+        myRefPackages.child(updatePackage.id!!).setValue(updatePackage)
+    }
 }
 
 

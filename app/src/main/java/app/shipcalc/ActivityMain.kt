@@ -31,6 +31,7 @@ class ActivityMain : AppCompatActivity() {
             } else {
                 try {
                     startActivity(Intent(this@ActivityMain, ActivityHome::class.java))
+                    finish()
                 }catch (e: Exception)
                 {
                     val alertDialogBuilder = AlertDialog.Builder(this)
