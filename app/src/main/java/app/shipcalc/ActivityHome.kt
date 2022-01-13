@@ -2,6 +2,7 @@ package app.shipcalc
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -32,7 +33,6 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        //TODO("validate the drawer is in left side in the phone")
         val toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 
@@ -118,6 +118,7 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
+
             super.onBackPressed()
         }
     }
@@ -144,8 +145,13 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ).commit()
             }
             R.id.nav_logout -> {
-                //TODO Clear shearedPreferences and logout from the firebase
+                var mySharedPreferences : SharedPreferences
+                    = getSharedPreferences("registeredUsers", MODE_PRIVATE)
+                mySharedPreferences.edit().remove("lastUser").commit()
+                finishAffinity()
                 startActivity(Intent(this, ActivityLogin::class.java))
+
+
             }
             else -> {
             }
