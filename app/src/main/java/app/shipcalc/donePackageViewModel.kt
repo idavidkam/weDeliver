@@ -11,7 +11,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class DonePackageViewModel: ViewModel() {
+class DonePackageViewModel : ViewModel() {
     var listPackages = MutableLiveData<MutableList<Package>>().apply {
         value = mutableListOf()
         loadPackages()
@@ -45,12 +45,12 @@ class DonePackageViewModel: ViewModel() {
                 if (myPackageValue != null && myPackageKey != null) {
                     val item = tempListPackages.find { pkg -> pkg.id == myPackageKey }
                     val index = tempListPackages.indexOf(item)
-                    if (myPackageValue.status == PackageStatusEnum.DONE) {
-                        tempListPackages[index] = myPackageValue
-                    }
-                    else {
-                        tempListPackages.remove(item)
-                    }
+                    if (myPackageValue.status != null)
+                        if (myPackageValue.status != PackageStatusEnum.DONE) {
+                            tempListPackages.remove(item)
+                        } else {
+                            tempListPackages[index] = myPackageValue
+                        }
                 }
                 listPackages.postValue(tempListPackages)
             }

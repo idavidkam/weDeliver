@@ -46,6 +46,15 @@ class ActivityHome : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        // for first openning
+        if(savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fragmentContainer,
+                FragmentPickPackage()
+            ).commit()
+            navigationView.setCheckedItem(R.id.nav_pickAPackage)
+        }
+
         // find the Header view in order to change username in the nav_drawer
         val headerNav: View = navigationView.getHeaderView(0)
         val textHeaderNav: TextView = headerNav.findViewById(R.id.nav_helloUser)
