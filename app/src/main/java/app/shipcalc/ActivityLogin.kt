@@ -40,19 +40,6 @@ class ActivityLogin : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-            } else if (passwordET.text.toString() != (mySharedPreferences.getString(
-                    emailET.text.toString(),
-                    ""
-                ).toString())
-                || (mySharedPreferences.getString(emailET.text.toString(), "")
-                    .toString()).isEmpty()
-            ) {
-                Toast.makeText(
-                    this,
-                    R.string.login_failed,
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
             } else {
                 try {
 

@@ -1,5 +1,6 @@
 package app.shipcalc
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,17 +43,21 @@ class PickPackageViewModel : ViewModel() {
                 val myPackageValue = dataSnapshot.getValue<Package>()
                 val myPackageKey = dataSnapshot.key
 
-                if (myPackageValue != null && myPackageKey != null) {
-                    val item = tempListPackages.find { pkg -> pkg.id == myPackageKey }
-                    val index = tempListPackages.indexOf(item)
-                    if (myPackageValue.status != null)
-                        if (myPackageValue.status != PackageStatusEnum.READY) {
-                            tempListPackages.remove(item)
-                        } else {
-                            tempListPackages[index] = myPackageValue
-                        }
-                }
-                listPackages.postValue(tempListPackages)
+                Handler().postDelayed({
+                    if (myPackageValue != null && myPackageKey != null) {
+                        val item = tempListPackages.find { pkg -> pkg.id == myPackageKey }
+                        val index = tempListPackages.indexOf(item)
+                        if (myPackageValue.status != null)
+                            if (myPackageValue.status != PackageStatusEnum.READY) {
+                                tempListPackages.remove(item)
+                            } else {
+                                tempListPackages[index] = myPackageValue
+                            }
+                    }
+                    listPackages.postValue(tempListPackages)
+
+                },1000)
+
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
