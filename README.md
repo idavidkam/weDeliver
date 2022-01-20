@@ -12,3 +12,6 @@ The app is Social Network for deliveries.
 
 # Installing
 The apk file must be downloaded and installed. The app only ran on Android devices
+
+# Pictures
+-- in progress --
