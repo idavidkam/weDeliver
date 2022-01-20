@@ -1,1 +1,1 @@
-Android app for managing shipments
+Android app for social Network for shipments
